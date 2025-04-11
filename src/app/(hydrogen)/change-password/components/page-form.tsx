@@ -13,7 +13,6 @@ import api from "@/config/axios.config";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import alertNotification from "@/components/alert-notification";
-import { UserApi } from "../../users/user.api";
 
 export default function ChangePasswordForm({
   isForce = false,
@@ -42,7 +41,7 @@ export default function ChangePasswordForm({
           setLoading(false);
           return;
         }
-        await UserApi.me();
+        // await UserApi.me();
 
         setReset({
           oldPassword: "",
