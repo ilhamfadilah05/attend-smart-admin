@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: "benefis2-frontend",
+      name: "attend-smart-frontend",
       script: "pnpm start -p 3004",
       args: "start",
       watch: false,
