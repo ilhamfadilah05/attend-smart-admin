@@ -51,7 +51,7 @@
       }
     ]
   },
-  "extends": "../../packages/config-typescript/nextjs.json",
+  "extends": "@repo/typescript-config/nextjs.json",
   "include": [
     "next-env.d.ts",
     "additional.d.ts",
