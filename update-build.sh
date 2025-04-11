@@ -1,0 +1,1 @@
+git pull origin master && pnpm clean && pnpm i && pnpm run build && pm2 delete benefis2-frontend && pm2 start ecosystem.config.js && pm2 save && pm2 log benefis2-frontend

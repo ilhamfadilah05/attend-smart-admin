@@ -1,0 +1,1 @@
+git pull origin master && pnpm run build && pm2 restart benefis2-frontend && pm2 save && pm2 log benefis2-frontend
