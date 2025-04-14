@@ -74,18 +74,11 @@ export const columnFormat: DefaultColumnFormat[] = [
   },
 
   {
-    key: "role",
+    key: "role_name",
     sortable: true,
     title: "Nama Role",
     type: "text",
     width: 200,
-    formatter(value, row) {
-      return (
-        <>
-          <Text className="text-sm">{value?.name}</Text>
-        </>
-      );
-    },
   },
 
   {
@@ -99,26 +92,6 @@ export const columnFormat: DefaultColumnFormat[] = [
         <>
           <Text className="text-sm">{value ? "Admin CMS" : "Karyawan"}</Text>
         </>
-      );
-    },
-  },
-
-  {
-    key: "status",
-    sortable: true,
-    title: "Status",
-    type: "text",
-    width: 200,
-    formatter(value, row) {
-      const userStatus = staticUserStatus.find((item) => item.id === value);
-
-      return (
-        <Badge
-          color={userStatus?.color || "info"}
-          className={cn(userStatus?.id === "BLOCK" && "bg-gray-700 text-white")}
-        >
-          {userStatus?.name || value}
-        </Badge>
       );
     },
   },

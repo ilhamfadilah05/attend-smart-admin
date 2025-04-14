@@ -1,11 +1,5 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
-  output: "export", // Required for GitHub Pages
-  basePath:
-    process.env.NODE_ENV === "production"
-      ? "/attend-smart-admin"
-      : "attend-smart-admin",
-  distDir: "dist",
   reactStrictMode: false,
   eslint: {
     ignoreDuringBuilds: true,

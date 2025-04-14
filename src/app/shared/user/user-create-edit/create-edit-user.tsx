@@ -321,31 +321,6 @@ export default function CreateUser({
                   </div>
                 </HorizontalFormBlockWrapper>
               }
-
-              {ability.can("change_period", "users") && (
-                <HorizontalFormBlockWrapper
-                  title="Periode Aktif"
-                  description={isDetail ? "" : "Hanya dapat diubah oleh admin"}
-                  isModalView={isModalView}
-                >
-                  <Input
-                    type="date"
-                    label={"Periode Mulai"}
-                    readOnly={isDetail ? true : false}
-                    placeholder={"Masukkan Periode Mulai"}
-                    {...register("start_date")}
-                    error={errors.start_date?.message}
-                  />
-                  <Input
-                    type="date"
-                    label={"Periode Akhir"}
-                    readOnly={isDetail ? true : false}
-                    placeholder={"Masukkan Periode Akhir"}
-                    {...register("end_date")}
-                    error={errors.end_date?.message}
-                  />
-                </HorizontalFormBlockWrapper>
-              )}
             </div>
           </div>
 

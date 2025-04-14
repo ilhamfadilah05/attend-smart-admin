@@ -58,9 +58,7 @@ export const defaultFormService = async (
 
   const result = await defaultService(config);
 
-  console.log("result default service", result);
-
-  if (result.status === 401) {
+  if (result.statusCode === 401) {
     globalSignOutOnError();
     return null;
   }
