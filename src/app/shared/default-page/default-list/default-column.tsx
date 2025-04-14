@@ -128,7 +128,7 @@ export const getColumns = ({
       if (sortable) {
         headerCell.sortable = sortable;
         headerCell.ascending =
-          sortConfig?.direction === "+" && sortConfig?.key === key;
+          sortConfig?.direction === "-desc" && sortConfig?.key === key;
         onHeaderCell = () => onHeaderCellClick(key);
       }
 
