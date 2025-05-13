@@ -11,7 +11,6 @@ export const PageFormSchemaEdit = z.object({
   id_branch: z.string().min(1),
   id_salary: z.string().optional(),
   name: z.string().min(1),
-  phone: z.string().min(1),
   gender: z.string().min(1),
   address: z.string().min(1),
   image: z.any().optional(),

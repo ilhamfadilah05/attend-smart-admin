@@ -4,6 +4,7 @@ import { DefaultColumnFormat } from "@/app/shared/default-page/default-list/defa
 import { formatDate } from "@utils/format-date";
 import Image from "next/image";
 import { Badge, Text } from "rizzui";
+import { defaultService } from "@/app/shared/default-page/default-service";
 
 export const PageFormSchemaEdit = z.object({
   id_employee: z.string().optional(),
@@ -32,9 +33,108 @@ export const apiPath = "/histories";
 
 export const filterFields: FilterFieldDto[] = [
   {
-    key: "name",
-    label: "Nama",
-    type: "text",
+    key: "id_employee",
+    label: "Karyawan",
+    type: "async-select",
+    getDataOptions: async (param?: string) => {
+      let result: DefaultOption[] = [];
+
+      const dataOpts = await defaultService<any[]>({
+        url: "/employees",
+        params: { name: param },
+      });
+      if (dataOpts?.data) {
+        return dataOpts.data.map((v: any) => ({
+          label: v.name,
+          value: v.id,
+        }));
+      }
+
+      return result;
+    },
+  },
+
+  {
+    key: "id_branch",
+    label: "Cabang",
+    type: "async-select",
+    getDataOptions: async (param?: string) => {
+      let result: DefaultOption[] = [];
+
+      const dataOpts = await defaultService<any[]>({
+        url: "/branches",
+        params: { name: param },
+      });
+      if (dataOpts?.data) {
+        return dataOpts.data.map((v: any) => ({
+          label: v.name,
+          value: v.id,
+        }));
+      }
+
+      return result;
+    },
+  },
+
+  {
+    key: "id_department",
+    label: "Jabatan",
+    type: "async-select",
+    getDataOptions: async (param?: string) => {
+      let result: DefaultOption[] = [];
+
+      const dataOpts = await defaultService<any[]>({
+        url: "/departments",
+        params: { name: param },
+      });
+      if (dataOpts?.data) {
+        return dataOpts.data.map((v: any) => ({
+          label: v.name,
+          value: v.id,
+        }));
+      }
+
+      return result;
+    },
+  },
+
+  {
+    key: "type",
+    label: "Tipe Absensi",
+    type: "async-select",
+    getDataOptions: async (param?: string) => {
+      let result: DefaultOption[] = [];
+
+      result = [
+        {
+          label: "Masuk",
+          value: "MASUK",
+        },
+        {
+          label: "Keluar",
+          value: "KELUAR",
+        },
+
+        {
+          label: "Lembur",
+          value: "LEMBUR",
+        },
+        {
+          label: "WFH",
+          value: "WFH",
+        },
+        {
+          label: "Izin",
+          value: "IZIN",
+        },
+        {
+          label: "Sakit",
+          value: "SAKIT",
+        },
+      ];
+
+      return result;
+    },
   },
   {
     key: "date_attend",

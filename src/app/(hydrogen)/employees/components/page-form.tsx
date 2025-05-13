@@ -148,24 +148,6 @@ export default function PageForm({
                   </FormGroup>
 
                   <FormGroup
-                    title={"Nomor Handphone *"}
-                    description={
-                      "Masukkan nomor handphone, Data ini wajib diisi"
-                    }
-                    className="pt-5"
-                  >
-                    <Input
-                      key={"phone"}
-                      type={"number"}
-                      readOnly={isDetail}
-                      placeholder={`0812xxxxxx`}
-                      {...register("phone")}
-                      error={errors.phone?.message as string}
-                      className="col-span-full"
-                    />
-                  </FormGroup>
-
-                  <FormGroup
                     title={"Jenis Kelamin *"}
                     description={"Pilih Jenis Kelamin, Data ini wajib diisi"}
                     className="pt-5"

@@ -2,7 +2,16 @@
 
 import WidgetCard from "@components/cards/widget-card";
 import { CustomTooltip } from "@components/charts/custom-tooltip";
-import { Bar, XAxis, YAxis, Tooltip, CartesianGrid, ComposedChart, ResponsiveContainer, LabelList } from "recharts";
+import {
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+  ComposedChart,
+  ResponsiveContainer,
+  LabelList,
+} from "recharts";
 import { useMedia } from "@hooks/use-media";
 import SimpleBar from "@ui/simplebar";
 import DropdownAction from "@components/charts/dropdown-action";
@@ -12,47 +21,9 @@ import TrendingUpIcon from "@components/icons/trending-up";
 import { useTheme } from "next-themes";
 import { formatNumber } from "@utils/format-number";
 import { useEffect, useState } from "react";
+import { defaultListService } from "../../default-page/default-service";
 
-const data = [
-  {
-    label: "Sun",
-    completed: 806,
-    progress: 584,
-  },
-  {
-    label: "Mon",
-    completed: 740,
-    progress: 923,
-  },
-  {
-    label: "Tue",
-    completed: 627,
-    progress: 784,
-  },
-  {
-    label: "Wed",
-    completed: 915,
-    progress: 759,
-  },
-  {
-    label: "Thu",
-    completed: 850,
-    progress: 923,
-  },
-
-  {
-    label: "Fri",
-    completed: 703,
-    progress: 587,
-  },
-  {
-    label: "Sat",
-    completed: 923,
-    progress: 805,
-  },
-];
-
-const appointmentLegend = [{ name: "Completed" }, { name: "In Progress" }];
+const appointmentLegend = [{ name: "Masuk" }, { name: "Tidak Masuk" }];
 
 interface ColorMap {
   dark: string;
@@ -60,55 +31,121 @@ interface ColorMap {
   [key: string]: string;
 }
 const COLORS: ColorMap[] = [
-  { dark: "#2B7F75", light: "#2B7F75" },
-  { dark: "#FFD66B", light: "#FFD66B" },
+  { dark: "#16C47F", light: "#16C47F" },
+  { dark: "#FF0B55", light: "#FF0B55" },
 ];
 
 const viewOptions = [
   {
-    value: "Daily",
-    label: "Daily",
+    value: "weekly",
+    label: "Mingguan",
   },
   {
-    value: "Monthly",
-    label: "Monthly",
+    value: "monthly",
+    label: "Bulanan",
   },
 ];
 
-export default function TotalAppointment({ className }: { className?: string }) {
+export default function TotalAppointment({
+  className,
+}: {
+  className?: string;
+}) {
   const { theme } = useTheme();
   const isTablet = useMedia("(max-width: 800px)", false);
+  const [viewType, setViewType] = useState("weekly");
+  const [data, setData] = useState([
+    {
+      label: "Senin",
+      in_work: 806,
+      absent_work: 584,
+    },
+    {
+      label: "Selasa",
+      in_work: 740,
+      absent_work: 923,
+    },
+    {
+      label: "Rabu",
+      in_work: 627,
+      absent_work: 784,
+    },
+    {
+      label: "Kamis",
+      in_work: 915,
+      absent_work: 759,
+    },
+    {
+      label: "Jum'at",
+      in_work: 850,
+      absent_work: 923,
+    },
+
+    {
+      label: "Sabtu",
+      in_work: 703,
+      absent_work: 587,
+    },
+    {
+      label: "Minggu",
+      in_work: 923,
+      absent_work: 805,
+    },
+  ]);
 
   function handleChange(viewType: string) {
     console.log("viewType", viewType);
+    setViewType(viewType);
   }
+
+  useEffect(() => {
+    getData();
+  }, [viewType]);
+
+  const getData = async () => {
+    let result = await defaultListService(
+      `/dashboard/admin/statistics?type=${viewType}`
+    );
+
+    if (result && result.data) {
+      setData(result.data);
+    }
+  };
 
   return (
     <WidgetCard
-      title="Project Statistic"
+      title="Histori Absensi"
       titleClassName="text-gray-700 font-normal sm:text-sm font-inter"
       headerClassName="items-center"
       action={
         <div className="flex items-center gap-5">
           <CustomLegend className="hidden @[28rem]:mt-0 @[28rem]:inline-flex" />
-          {/* <DropdownAction className="rounded-md border" options={viewOptions} onChange={handleChange} /> */}
+          <DropdownAction
+            className="rounded-md border"
+            options={viewOptions}
+            onChange={handleChange}
+          />
         </div>
       }
       className={cn("min-h-[20rem] @container", className)}
     >
-      <div className="mb-4 mt-1 flex items-center gap-2">
-        {/* <Title as="h2" className="font-inter font-bold">
+      {/* <div className="mb-4 mt-1 flex items-center gap-2">
+        <Title as="h2" className="font-inter font-bold">
           2834
         </Title>
         <span className="flex items-center gap-1 text-green-dark">
           <TrendingUpIcon className="h-auto w-5" />
           <span className="font-semibold leading-none"> +28.00%</span>
-        </span> */}
-      </div>
+        </span>
+      </div> */}
       {/* <CustomLegend className="mb-4 mt-0 inline-flex @[28rem]:hidden" /> */}
       <SimpleBar>
         <div className="h-[18rem] w-full pt-1">
-          <ResponsiveContainer width="100%" height="100%" {...(isTablet && { minWidth: "1100px" })}>
+          <ResponsiveContainer
+            width="100%"
+            height="100%"
+            {...(isTablet && { minWidth: "1100px" })}
+          >
             <ComposedChart
               barGap={8}
               data={data}
@@ -118,12 +155,20 @@ export default function TotalAppointment({ className }: { className?: string }) 
               }}
               className="[&_.recharts-tooltip-cursor]:fill-opacity-20 dark:[&_.recharts-tooltip-cursor]:fill-opacity-10 [&_.recharts-cartesian-axis-tick-value]:fill-gray-500 rtl:[&_.recharts-cartesian-axis.yAxis]:-translate-x-12 [&_.recharts-xAxis.xAxis]:translate-y-2.5 [&_path.recharts-rectangle]:!stroke-none"
             >
-              <CartesianGrid vertical={false} strokeOpacity={0.435} strokeDasharray="8 10" />
+              <CartesianGrid
+                vertical={false}
+                strokeOpacity={0.435}
+                strokeDasharray="8 10"
+              />
               <XAxis dataKey="label" axisLine={false} tickLine={false} />
-              <YAxis axisLine={false} tickLine={false} tickFormatter={(label) => label} />
+              <YAxis
+                axisLine={false}
+                tickLine={false}
+                tickFormatter={(label) => label}
+              />
               <Tooltip content={<CustomTooltip />} cursor={false} />
               <Bar
-                dataKey="completed"
+                dataKey="in_work"
                 {...(theme && {
                   fill: COLORS[0][theme],
                   stroke: COLORS[0][theme],
@@ -131,11 +176,11 @@ export default function TotalAppointment({ className }: { className?: string }) 
                 barSize={40}
                 radius={[10, 10, 10, 10]}
               >
-                <LabelList dataKey="completed" content={<CustomizedLabel />} />
+                <LabelList dataKey="in_work" content={<CustomizedLabel />} />
               </Bar>
               <Bar
                 type="natural"
-                dataKey="progress"
+                dataKey="absent_work"
                 {...(theme && {
                   fill: COLORS[1][theme],
                   stroke: COLORS[1][theme],
@@ -143,7 +188,10 @@ export default function TotalAppointment({ className }: { className?: string }) 
                 barSize={40}
                 radius={[10, 10, 10, 10]}
               >
-                <LabelList dataKey="progress" content={<CustomizedLabel />} />
+                <LabelList
+                  dataKey="absent_work"
+                  content={<CustomizedLabel />}
+                />
               </Bar>
             </ComposedChart>
           </ResponsiveContainer>
@@ -162,7 +210,12 @@ function CustomLegend({ className }: { className?: string }) {
   }, []);
 
   return (
-    <div className={cn("mt-2 flex flex-wrap items-start gap-3 lg:gap-5", className)}>
+    <div
+      className={cn(
+        "mt-2 flex flex-wrap items-start gap-3 lg:gap-5",
+        className
+      )}
+    >
       {appointmentLegend.map((item, index) => (
         <div key={item.name} className="flex items-center gap-1.5">
           {isClient && (
@@ -186,9 +239,18 @@ function CustomizedLabel(props: any) {
   const { x, y, width, height, value } = props;
   const radius = 8;
 
+  if (value === 0) return null;
+
   return (
     <g>
-      <rect x={x + 3} y={y + 3} width={width - 6} height={20} rx={radius} fill="#ffffff" />
+      <rect
+        x={x + 3}
+        y={y + 3}
+        width={width - 6}
+        height={20}
+        rx={radius}
+        fill="#ffffff"
+      />
       <text
         x={x + width / 2}
         y={y + 14}
@@ -197,7 +259,7 @@ function CustomizedLabel(props: any) {
         textAnchor="middle"
         dominantBaseline="middle"
       >
-        {formatNumber(value)}
+        {formatNumber(value.toString())}
       </text>
     </g>
   );

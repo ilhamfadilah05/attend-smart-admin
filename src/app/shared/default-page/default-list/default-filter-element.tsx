@@ -5,7 +5,7 @@ import { PiTrashDuotone } from "react-icons/pi";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { FilterFieldDto } from "../dto";
-import { Grid, Select, Textarea } from "rizzui";
+import { Grid, Select, Text, Textarea } from "rizzui";
 import { DatePicker } from "@ui/datepicker";
 import { formatDate } from "@utils/format-date";
 import DefaultNumberInput from "../default-form/default-number-input";
@@ -57,16 +57,19 @@ export default function FilterElement({
             );
           } else if (type === "async-select") {
             return (
-              <DefaultAsyncSelect
-                key={key}
-                label={is_label ? label : undefined}
-                placeholder={`Cari ${label} ...`}
-                onChange={(v) => {
-                  return updateFilter(key, (v as string) || "");
-                }}
-                value={filters[key] || ""}
-                getDataOptions={getDataOptions}
-              />
+              <div key={key}>
+                <Text className="text-sm mb-2">Pilih {label}</Text>
+                <DefaultAsyncSelect
+                  key={key}
+                  label={is_label ? label : undefined}
+                  placeholder={`Pilih ${label} ...`}
+                  onChange={(v) => {
+                    return updateFilter(key, (v as string) || "");
+                  }}
+                  value={filters[key] || ""}
+                  getDataOptions={getDataOptions}
+                />
+              </div>
             );
           } else if (type === "file") {
           } else if (type === "curr_range") {
@@ -171,37 +174,40 @@ export default function FilterElement({
             );
           } else if (type === "date_range") {
             return (
-              <div key={key} className="grid grid-cols-2 gap-1">
-                <DatePicker
-                  key={`${key}_gte`}
-                  isClearable={true}
-                  placeholderText={`${label} Mulai ...`}
-                  selected={
-                    filters[`${key}_gte`]
-                      ? new Date(filters[`${key}_gte`])
-                      : null
-                  }
-                  dateFormat={"dd MMM yyyy"}
-                  onChange={(date: Date) => {
-                    const value = formatDate(date, "YYYY-MM-DD");
-                    updateFilter(`${key}_gte`, value || "");
-                  }}
-                />
-                <DatePicker
-                  key={`${key}_lte`}
-                  isClearable={true}
-                  placeholderText={`${label} Akhir ...`}
-                  selected={
-                    filters[`${key}_lte`]
-                      ? new Date(filters[`${key}_lte`])
-                      : null
-                  }
-                  dateFormat={"dd MMMM yyyy"}
-                  onChange={(date: Date) => {
-                    const value = formatDate(date, "YYYY-MM-DD");
-                    updateFilter(`${key}_lte`, value || "");
-                  }}
-                />
+              <div key={key}>
+                <Text className="text-sm mb-2">Pilih {label}</Text>
+                <div key={key} className="grid grid-cols-2 gap-1">
+                  <DatePicker
+                    key={`${key}_gte`}
+                    isClearable={true}
+                    placeholderText={`${label} Mulai ...`}
+                    selected={
+                      filters[`${key}_gte`]
+                        ? new Date(filters[`${key}_gte`])
+                        : null
+                    }
+                    dateFormat={"dd MMM yyyy"}
+                    onChange={(date: Date) => {
+                      const value = formatDate(date, "YYYY-MM-DD");
+                      updateFilter(`${key}_gte`, value || "");
+                    }}
+                  />
+                  <DatePicker
+                    key={`${key}_lte`}
+                    isClearable={true}
+                    placeholderText={`${label} Akhir ...`}
+                    selected={
+                      filters[`${key}_lte`]
+                        ? new Date(filters[`${key}_lte`])
+                        : null
+                    }
+                    dateFormat={"dd MMMM yyyy"}
+                    onChange={(date: Date) => {
+                      const value = formatDate(date, "YYYY-MM-DD");
+                      updateFilter(`${key}_lte`, value || "");
+                    }}
+                  />
+                </div>
               </div>
             );
             // } else if (type === "date") {
@@ -232,18 +238,21 @@ export default function FilterElement({
             );
           } else {
             return (
-              <Input
-                key={key}
-                label={is_label ? label : undefined}
-                type={type}
-                placeholder={`Cari ${label} ...`}
-                value={filters[key] || ""}
-                onClear={() => updateFilter(key, "")}
-                onChange={(event) => updateFilter(key, event.target.value)}
-                inputClassName="h-9"
-                clearable={true}
-                className={cn(className)}
-              />
+              <div key={key}>
+                <Text className="text-sm mb-2">Cari {label}</Text>
+                <Input
+                  key={key}
+                  label={is_label ? label : undefined}
+                  type={type}
+                  placeholder={`Cari ${label} ...`}
+                  value={filters[key] || ""}
+                  onClear={() => updateFilter(key, "")}
+                  onChange={(event) => updateFilter(key, event.target.value)}
+                  inputClassName="h-9"
+                  clearable={true}
+                  className={cn(className)}
+                />
+              </div>
             );
           }
         }

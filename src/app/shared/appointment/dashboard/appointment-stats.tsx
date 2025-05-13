@@ -56,7 +56,7 @@ export type StatCardProps = {
   transaction: StatType;
 };
 
-function StatCard({ className, transaction }: StatCardProps) {
+export function StatCard({ className, transaction }: StatCardProps) {
   const { icon, title, amount, desc } = transaction;
   const Icon = icon;
   return (
@@ -75,7 +75,9 @@ function StatCard({ className, transaction }: StatCardProps) {
           <Icon className="h-auto w-[30px]" />
         </span>
         <div className="space-y-1.5">
-          <p className="font-medium text-gray-500 group-first:text-gray-100 dark:group-first:text-gray-800">{title}</p>
+          <p className="font-medium text-gray-500 group-first:text-gray-100 dark:group-first:text-gray-800">
+            {title}
+          </p>
           <p className="text-lg font-bold text-gray-900 group-first:text-gray-0 dark:text-gray-700 dark:group-first:text-gray-900 2xl:text-[20px] 3xl:text-3xl">
             {amount}
           </p>
@@ -96,17 +98,34 @@ export function StatGrid() {
   return (
     <>
       {statData.map((stat: StatType, index: number) => {
-        return <StatCard key={"stat-card-" + index} transaction={stat} className="min-w-[300px]" />;
+        return (
+          <StatCard
+            key={"stat-card-" + index}
+            transaction={stat}
+            className="min-w-[300px]"
+          />
+        );
       })}
     </>
   );
 }
 
 export default function AppointmentStats({ className }: AppointmentStatsType) {
-  const { sliderEl, sliderPrevBtn, sliderNextBtn, scrollToTheRight, scrollToTheLeft } = useScrollableSlider();
+  const {
+    sliderEl,
+    sliderPrevBtn,
+    sliderNextBtn,
+    scrollToTheRight,
+    scrollToTheLeft,
+  } = useScrollableSlider();
 
   return (
-    <div className={cn("relative flex w-auto items-center overflow-hidden", className)}>
+    <div
+      className={cn(
+        "relative flex w-auto items-center overflow-hidden",
+        className
+      )}
+    >
       <Button
         title="Prev"
         variant="text"

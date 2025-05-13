@@ -43,32 +43,30 @@ export const filterFields: FilterFieldDto[] = [
 ];
 
 export const columnFormat: DefaultColumnFormat[] = [
-  // {
-  //   key: "image",
-  //   sortable: false,
-  //   type: "text",
-  //   width: 80,
-  //   title: "",
-  //   formatter(value, row) {
-  //     return (
-  //       <Image
-  //         src={row?.image}
-  //         alt={row?.image}
-  //         width={80}
-  //         height={20}
-  //         sizes="(max-width: 80px) 100vw"
-  //         className="rounded-sm object-cover"
-  //         style={{
-  //           borderRadius: "10%",
-  //           border: "1px solid #fff",
-  //         }}
-  //         onError={(e) => {
-  //           e.currentTarget.src = "/no_image_available.jpg";
-  //         }}
-  //       />
-  //     );
-  //   },
-  // },
+  {
+    key: "image",
+    sortable: false,
+    type: "text",
+    width: 80,
+    title: "#",
+    formatter(value, row) {
+      return (
+        <Image
+          src={row?.image}
+          alt={row?.image}
+          width={80}
+          height={20}
+          sizes="(max-width: 80px) 100vw"
+          className="rounded-sm object-cover"
+          style={{
+            borderRadius: "10%",
+            border: "1px solid #fff",
+          }}
+        />
+      );
+    },
+  },
+
   {
     key: "title",
     sortable: true,

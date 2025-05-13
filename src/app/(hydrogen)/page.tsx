@@ -1,6 +1,7 @@
 import { metaObject } from "@/config/site.config";
 import AppointmentDashboard from "@/app/shared/appointment/dashboard";
 import { Title } from "rizzui";
+import Dashboard from "../shared/dashboard";
 
 export const metadata = {
   ...metaObject("Dashboard"),
@@ -9,7 +10,7 @@ export const metadata = {
 export default function Home() {
   return (
     <div>
-      <Title>Dashboard</Title>
+      <Dashboard />
     </div>
   );
   // return <AppointmentDashboard />;

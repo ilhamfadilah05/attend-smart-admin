@@ -1,12 +1,12 @@
 import {
   ValueType,
   NameType,
-} from 'recharts/types/component/DefaultTooltipContent';
-import { TooltipProps } from 'recharts';
-import { Text } from 'rizzui';
-import cn from '../../utils/class-names';
-import { addSpacesToCamelCase } from '../../utils/add-spaces-to-camel-case';
-import { formatNumber } from '../../utils/format-number';
+} from "recharts/types/component/DefaultTooltipContent";
+import { TooltipProps } from "recharts";
+import { Text } from "rizzui";
+import cn from "../../utils/class-names";
+import { addSpacesToCamelCase } from "../../utils/add-spaces-to-camel-case";
+import { formatNumber } from "../../utils/format-number";
 
 function isValidHexColor(colorCode: string) {
   const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
@@ -34,7 +34,7 @@ export function CustomTooltip({
   return (
     <div
       className={cn(
-        'rounded-md border border-gray-300 bg-gray-0 shadow-2xl dark:bg-gray-100',
+        "rounded-md border border-gray-300 bg-gray-0 shadow-2xl dark:bg-gray-100",
         className
       )}
     >
@@ -51,7 +51,7 @@ export function CustomTooltip({
               className="me-1.5 h-2 w-2 rounded-full"
               style={{
                 backgroundColor: isValidHexColor(item.fill)
-                  ? item.fill === '#fff'
+                  ? item.fill === "#fff"
                     ? item.stroke
                     : item.fill
                   : item.stroke,
@@ -59,8 +59,11 @@ export function CustomTooltip({
             />
             <Text>
               <Text as="span" className="capitalize">
-                {addSpacesToCamelCase(item.dataKey)}:
-              </Text>{' '}
+                {addSpacesToCamelCase(
+                  item.dataKey === "in_work" ? "Masuk" : "Tidak Masuk"
+                )}
+                :
+              </Text>{" "}
               <Text
                 as="span"
                 className="font-medium text-gray-900 dark:text-gray-700"
