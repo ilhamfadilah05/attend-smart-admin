@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
   reactStrictMode: false,
-  srcDir: "src",
   eslint: {
     ignoreDuringBuilds: true,
   },

@@ -1,17 +1,17 @@
-import { useState } from 'react';
-import { useIsomorphicEffect } from '../hooks/use-event-listener';
+import { useState } from "react";
+import { useIsomorphicEffect } from "./use-event-listener";
 
 export type OS =
-  | 'undetermined'
-  | 'macos'
-  | 'ios'
-  | 'windows'
-  | 'android'
-  | 'linux';
+  | "undetermined"
+  | "macos"
+  | "ios"
+  | "windows"
+  | "android"
+  | "linux";
 
 function getOS(): OS {
-  if (typeof window === 'undefined') {
-    return 'undetermined';
+  if (typeof window === "undefined") {
+    return "undetermined";
   }
 
   const { userAgent } = window.navigator;
@@ -20,22 +20,22 @@ function getOS(): OS {
   const iosPlatforms = /(iPhone)|(iPad)|(iPod)/i;
 
   if (macosPlatforms.test(userAgent)) {
-    return 'macos';
+    return "macos";
   }
   if (iosPlatforms.test(userAgent)) {
-    return 'ios';
+    return "ios";
   }
   if (windowsPlatforms.test(userAgent)) {
-    return 'windows';
+    return "windows";
   }
   if (/Android/i.test(userAgent)) {
-    return 'android';
+    return "android";
   }
   if (/Linux/i.test(userAgent)) {
-    return 'linux';
+    return "linux";
   }
 
-  return 'undetermined';
+  return "undetermined";
 }
 
 interface UseOsOptions {
@@ -44,7 +44,7 @@ interface UseOsOptions {
 
 export function useOs(options: UseOsOptions = { getValueInEffect: true }): OS {
   const [value, setValue] = useState<OS>(
-    options.getValueInEffect ? 'undetermined' : getOS()
+    options.getValueInEffect ? "undetermined" : getOS()
   );
 
   useIsomorphicEffect(() => {

@@ -1,8 +1,5 @@
-import { useCallback, useState } from 'react';
-import {
-  useEventListener,
-  useIsomorphicEffect,
-} from '../hooks/use-event-listener';
+import { useCallback, useState } from "react";
+import { useEventListener, useIsomorphicEffect } from "./use-event-listener";
 
 type Size = {
   width: number;
@@ -30,7 +27,7 @@ export function useElementSize<T extends HTMLElement = HTMLDivElement>(): [
     });
   }, [ref?.offsetHeight, ref?.offsetWidth]);
 
-  useEventListener('resize', handleSize);
+  useEventListener("resize", handleSize);
 
   useIsomorphicEffect(() => {
     handleSize();

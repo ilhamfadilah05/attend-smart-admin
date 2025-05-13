@@ -1,5 +1,5 @@
-export { Portal } from '../Portal/Portal';
-export { OptionalPortal } from '../Portal/OptionalPortal';
+export { Portal } from "./Portal";
+export { OptionalPortal } from "./OptionalPortal";
 
-export type { PortalProps } from '../Portal/Portal';
-export type { OptionalPortalProps } from '../Portal/OptionalPortal';
+export type { PortalProps } from "./Portal";
+export type { OptionalPortalProps } from "./OptionalPortal";

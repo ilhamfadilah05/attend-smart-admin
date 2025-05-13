@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { useHorizontalScrollAvailability } from '../hooks/use-horizontal-scroll-availability';
+import React from "react";
+import { useHorizontalScrollAvailability } from "./use-horizontal-scroll-availability";
 
 // Note: move to hook
 export function useElementRePosition({ ref, activeTab }: any) {
@@ -30,16 +30,16 @@ export function useElementRePosition({ ref, activeTab }: any) {
         // Set the new scroll position
         ref.current.scrollTo({
           left: newScrollLeft,
-          behavior: 'smooth',
+          behavior: "smooth",
         });
       }
     }
     handleScrollLeft();
 
-    window.addEventListener('resize', handleScrollLeft);
+    window.addEventListener("resize", handleScrollLeft);
     // clear event
     return () => {
-      window.removeEventListener('resize', handleScrollLeft);
+      window.removeEventListener("resize", handleScrollLeft);
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

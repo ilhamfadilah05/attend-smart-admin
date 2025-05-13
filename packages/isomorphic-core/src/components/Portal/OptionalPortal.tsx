@@ -1,4 +1,4 @@
-import { Portal, PortalProps } from '../Portal/Portal';
+import { Portal, PortalProps } from "./Portal";
 
 export interface OptionalPortalProps extends PortalProps {
   /** Determines whether children should be rendered inside `<Portal />` */
@@ -17,4 +17,4 @@ export function OptionalPortal({
   return <>{children}</>;
 }
 
-OptionalPortal.displayName = 'OptionalPortal';
+OptionalPortal.displayName = "OptionalPortal";

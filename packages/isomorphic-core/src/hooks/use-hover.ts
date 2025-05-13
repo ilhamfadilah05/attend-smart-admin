@@ -1,5 +1,5 @@
-import { useState, RefObject } from 'react';
-import { useEventListener } from '../hooks/use-event-listener';
+import { useState, RefObject } from "react";
+import { useEventListener } from "./use-event-listener";
 
 export function useHover<T extends HTMLElement = HTMLElement>(
   elementRef: RefObject<T>
@@ -9,8 +9,8 @@ export function useHover<T extends HTMLElement = HTMLElement>(
   const handleMouseEnter = () => setValue(true);
   const handleMouseLeave = () => setValue(false);
 
-  useEventListener('mouseenter', handleMouseEnter, elementRef);
-  useEventListener('mouseleave', handleMouseLeave, elementRef);
+  useEventListener("mouseenter", handleMouseEnter, elementRef);
+  useEventListener("mouseleave", handleMouseLeave, elementRef);
 
   return value;
 }
