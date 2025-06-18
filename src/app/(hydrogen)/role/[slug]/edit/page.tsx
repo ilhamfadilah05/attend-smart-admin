@@ -57,10 +57,9 @@ export default function EditRole({ params }: { params: { slug: string } }) {
         title={pageHeader.title}
         breadcrumb={pageHeader.breadcrumb}
       ></PageHeader>
-      {
-        // dataRole?.name && ability.can("update", "roles/:id") &&
+      {dataRole?.name && ability.can("update", "roles/:id") && (
         <FormRole id={params.slug} role={dataRole} />
-      }
+      )}
     </>
   );
 }

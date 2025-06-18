@@ -54,18 +54,18 @@ export default function DetailFormPage({ params }: Props) {
         title={pageHeader.title}
         breadcrumb={pageHeader.breadcrumb}
       ></PageHeader>
-      {dataInput &&
-        Object.keys(dataInput).length > 0 &&
-        ability.can("read", `${apiPath}/:id`) && (
-          <PageForm
-            isDetail={true}
-            redirect={`${apiPath}`}
-            title={title}
-            className="pt-10"
-            dataInput={dataInput}
-            id={params.slug}
-          />
-        )}
+      {dataInput && Object.keys(dataInput).length > 0 && (
+        // ability.can("read", `${apiPath}/:id`)
+        // &&
+        <PageForm
+          isDetail={true}
+          redirect={`${apiPath}`}
+          title={title}
+          className="pt-10"
+          dataInput={dataInput}
+          id={params.slug}
+        />
+      )}
     </>
   );
 }
