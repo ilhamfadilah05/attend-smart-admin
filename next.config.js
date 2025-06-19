@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
   reactStrictMode: false,
-  swcMinify: false,
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -36,6 +35,5 @@ module.exports = {
   transpilePackages: ["@isomorphic/core"],
   experimental: {
     missingSuspenseWithCSRBailout: false,
-    forceSwcTransforms: false,
   },
 };
