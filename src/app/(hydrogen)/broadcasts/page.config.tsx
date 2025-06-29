@@ -51,18 +51,20 @@ export const columnFormat: DefaultColumnFormat[] = [
     title: "#",
     formatter(value, row) {
       return (
-        <Image
-          src={row?.image}
-          alt={row?.image}
-          width={80}
-          height={20}
-          sizes="(max-width: 80px) 100vw"
-          className="rounded-sm object-cover"
-          style={{
-            borderRadius: "10%",
-            border: "1px solid #fff",
-          }}
-        />
+        value && (
+          <Image
+            src={value}
+            alt={value}
+            width={80}
+            height={20}
+            sizes="(max-width: 80px) 100vw"
+            className="rounded-sm object-cover"
+            style={{
+              borderRadius: "10%",
+              border: "1px solid #fff",
+            }}
+          />
+        )
       );
     },
   },

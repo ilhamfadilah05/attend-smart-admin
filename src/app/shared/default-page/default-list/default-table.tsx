@@ -241,13 +241,12 @@ export default function DefaultTable({
     },
   });
 
-  // let editAccess = ability.can("update", `${apiPath}/:uuid`);
-  // let detailAccess = ability.can("read", `${apiPath}/:uuid`);
-  // let deleteAccess = ability.can("delete", `${apiPath}/:uuid`);
-
-  let editAccess = true;
-  let detailAccess = true;
-  let deleteAccess = true;
+  let editAccess = ability.can("update", `${apiPath.replaceAll("/", "")}/:id`);
+  let detailAccess = ability.can("read", `${apiPath.replaceAll("/", "")}/:id`);
+  let deleteAccess = ability.can(
+    "delete",
+    `${apiPath.replaceAll("/", "")}/:id`
+  );
 
   const fetchWithQuery = async () => {
     await fetchData({

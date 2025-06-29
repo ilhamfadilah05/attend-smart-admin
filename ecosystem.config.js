@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: "attend-smart-frontend",
-      script: "pnpm start -p 3004",
+      script: "pnpm start",
       args: "start",
       watch: false,
       env: {

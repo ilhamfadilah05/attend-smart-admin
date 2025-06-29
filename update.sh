@@ -1,1 +1,1 @@
-git pull origin master && pnpm run build && pm2 restart benefis2-frontend && pm2 save && pm2 log benefis2-frontend
+git pull origin master && NODE_OPTIONS="--max-old-space-size=2048" pnpm build && pm2 delete attend-smart-frontend && pm2 start ecosystem.config.js && pm2 save
