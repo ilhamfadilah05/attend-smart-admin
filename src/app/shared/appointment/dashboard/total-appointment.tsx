@@ -11,6 +11,9 @@ import {
   ComposedChart,
   ResponsiveContainer,
   LabelList,
+  AreaChart,
+  Area,
+  Legend,
 } from "recharts";
 import { useMedia } from "@hooks/use-media";
 import SimpleBar from "@ui/simplebar";
@@ -22,8 +25,9 @@ import { useTheme } from "next-themes";
 import { formatNumber } from "@utils/format-number";
 import { useEffect, useState } from "react";
 import { defaultListService } from "../../default-page/default-service";
+import { CustomYAxisTick } from "@components/charts/custom-yaxis-tick";
 
-const appointmentLegend = [{ name: "Masuk" }, { name: "Tidak Masuk" }];
+const appointmentLegend = [{ name: "Masuk" }, { name: "Pulang" }];
 
 interface ColorMap {
   dark: string;
@@ -139,7 +143,7 @@ export default function TotalAppointment({
         </span>
       </div> */}
       {/* <CustomLegend className="mb-4 mt-0 inline-flex @[28rem]:hidden" /> */}
-      <SimpleBar>
+      {/* <SimpleBar>
         <div className="h-[18rem] w-full pt-1">
           <ResponsiveContainer
             width="100%"
@@ -196,7 +200,74 @@ export default function TotalAppointment({
             </ComposedChart>
           </ResponsiveContainer>
         </div>
-      </SimpleBar>
+      </SimpleBar> */}
+
+      <Legend className="mt-2 flex @2xl:hidden @3xl:flex @5xl:hidden" />
+      <div className="custom-scrollbar overflow-x-auto">
+        <div className="h-96 w-full pt-9">
+          <ResponsiveContainer
+            width="100%"
+            height="100%"
+            {...(isTablet && { minWidth: "900px" })}
+          >
+            <AreaChart
+              data={data}
+              margin={{
+                top: 20,
+                right: 20,
+                bottom: 0,
+                left: 40, // sesuai lebar YAxis
+              }}
+              className="[&_.recharts-cartesian-axis-tick-value]:fill-gray-500 rtl:[&_.recharts-cartesian-axis.yAxis]:-translate-x-12 [&_.recharts-cartesian-grid-vertical]:opacity-0"
+            >
+              <defs>
+                <linearGradient
+                  id="total_transaction"
+                  x1="0"
+                  y1="0"
+                  x2="0"
+                  y2="1"
+                >
+                  <stop offset="5%" stopColor="#eab308" stopOpacity={0.1} />
+                  <stop offset="95%" stopColor="#eab308" stopOpacity={0} />
+                </linearGradient>
+                <linearGradient id="total_amount" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#00D1FF" stopOpacity={0.1} />
+                  <stop offset="95%" stopColor="#00D1FF" stopOpacity={0} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="8 10" strokeOpacity={0.435} />
+              <XAxis dataKey="label" axisLine={false} tickLine={false} />
+              {/* <YAxis
+                width={100} // Ubah sesuai kebutuhan agar label panjang muat
+                tickLine={false}
+                axisLine={false}
+                tick={({ payload, ...rest }) => (
+                  <CustomYAxisTick prefix="Rp" payload={payload} {...rest} />
+                )}
+              /> */}
+              <Tooltip content={<CustomTooltip />} />
+              <Area
+                type="monotone"
+                dataKey="absent_work"
+                stroke="#FF0B55"
+                strokeWidth={2}
+                fillOpacity={1}
+                fill="url(#target)"
+              />
+              <Area
+                type="monotone"
+                dataKey="in_work"
+                stroke="#16C47F"
+                strokeWidth={2}
+                fillOpacity={1}
+                offset={10}
+                fill="url(#actual)"
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
     </WidgetCard>
   );
 }

@@ -207,16 +207,24 @@ export const columnFormat: DefaultColumnFormat[] = [
     sortable: true,
     title: "Status Absensi",
     type: "text",
-    width: 180,
+    width: 220,
     formatter(value, row) {
       return (
         <Badge
           color={row?.delayed === 0 ? "success" : "danger"}
           className="text-xs"
+          rounded="md"
         >
-          {row?.delayed === 0
-            ? "Tepat Waktu"
-            : `Terlambat ${row?.delayed} Menit`}
+          {row?.delayed === 0 ? (
+            "Tepat Waktu"
+          ) : (
+            <div className="text-xs">
+              Terlambat{" "}
+              {row.delayed < 60
+                ? `${row.delayed} Menit`
+                : `${Math.floor(row.delayed / 60)} Jam ${row.delayed % 60} Menit`}
+            </div>
+          )}
         </Badge>
       );
     },
@@ -233,7 +241,7 @@ export const columnFormat: DefaultColumnFormat[] = [
     key: "branch_name",
     sortable: true,
     title: "Cabang",
-    width: 200,
+    width: 150,
     type: "text",
     textClassName: "line-clamp-2",
   },

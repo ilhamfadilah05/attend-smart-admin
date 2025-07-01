@@ -40,9 +40,17 @@ import {
   LoadScript,
   Marker,
 } from "@react-google-maps/api";
+import { formatDate } from "@utils/format-date";
 const QuillEditor = dynamic(() => import("@/components/ui/quill-editor"), {
   ssr: false,
 });
+
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 type Props = {
   id?: string;
@@ -107,7 +115,12 @@ export default function PageForm({
             ? {
                 ...dataInput,
                 date_attend: dataInput.date_attend
-                  ? new Date(dataInput.date_attend).toISOString().split(".")[0]
+                  ? new Date(
+                      new Date(dataInput.date_attend).getTime() +
+                        7 * 60 * 60 * 1000
+                    )
+                      .toISOString()
+                      .split(".")[0]
                   : undefined,
               }
             : {},
@@ -313,6 +326,18 @@ export default function PageForm({
                               {
                                 value: "KELUAR",
                                 label: "Pulang",
+                              },
+                              {
+                                value: "IZIN",
+                                label: "Izin",
+                              },
+                              {
+                                value: "WFH",
+                                label: "WFH",
+                              },
+                              {
+                                value: "SAKIT",
+                                label: "Sakit",
                               },
                             ];
                           }}

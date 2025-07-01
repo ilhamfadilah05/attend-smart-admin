@@ -123,6 +123,30 @@ export default function PageForm({
             <div
               className={cn("grid grid-cols-1 ", isModalView ? "" : "gap-5")}
             >
+              {getValues("status") === "pending" && (
+                <div className="flex justify-end mb-2">
+                  <Button
+                    className="mr-2 w-[100px] bg-green-600 text-white hover:bg-green-700"
+                    onClick={() => {
+                      setValue("status", "approved", { shouldValidate: true });
+                      onSubmit(getValues());
+                    }}
+                  >
+                    Setujui
+                  </Button>
+
+                  <Button
+                    className="w-[100px]"
+                    color="danger"
+                    onClick={() => {
+                      setValue("status", "rejected", { shouldValidate: true });
+                      onSubmit(getValues());
+                    }}
+                  >
+                    Reject
+                  </Button>
+                </div>
+              )}
               <hr />
               <FormGroup
                 title={"Karyawan * "}
@@ -202,7 +226,11 @@ export default function PageForm({
                         clearable
                         onClear={() => onChange("")}
                         disabled={
-                          isDetail || (id && dataInput?.status === "approved")
+                          isDetail ||
+                          (id &&
+                            (dataInput?.status === "approved" ||
+                              dataInput?.status === "rejected" ||
+                              dataInput?.status === "rejected"))
                             ? true
                             : false
                         }
@@ -246,11 +274,7 @@ export default function PageForm({
                         className="col-span-full"
                         clearable
                         onClear={() => onChange("")}
-                        disabled={
-                          isDetail || (id && dataInput?.status === "approved")
-                            ? true
-                            : false
-                        }
+                        disabled={true}
                       />
                     );
                   }}
@@ -266,7 +290,10 @@ export default function PageForm({
                   key="name"
                   type="text"
                   disabled={
-                    isDetail || (id && dataInput?.status === "approved")
+                    isDetail ||
+                    (id &&
+                      (dataInput?.status === "approved" ||
+                        dataInput?.status === "rejected"))
                       ? true
                       : false
                   }
@@ -285,12 +312,18 @@ export default function PageForm({
                   key={"start_date"}
                   type={"date"}
                   readOnly={
-                    isDetail || (id && dataInput?.status === "approved")
+                    isDetail ||
+                    (id &&
+                      (dataInput?.status === "approved" ||
+                        dataInput?.status === "rejected"))
                       ? true
                       : false
                   }
                   disabled={
-                    isDetail || (id && dataInput?.status === "approved")
+                    isDetail ||
+                    (id &&
+                      (dataInput?.status === "approved" ||
+                        dataInput?.status === "rejected"))
                       ? true
                       : false
                   }
@@ -309,12 +342,18 @@ export default function PageForm({
                   key={"end_date"}
                   type={"date"}
                   readOnly={
-                    isDetail || (id && dataInput?.status === "approved")
+                    isDetail ||
+                    (id &&
+                      (dataInput?.status === "approved" ||
+                        dataInput?.status === "rejected"))
                       ? true
                       : false
                   }
                   disabled={
-                    isDetail || (id && dataInput?.status === "approved")
+                    isDetail ||
+                    (id &&
+                      (dataInput?.status === "approved" ||
+                        dataInput?.status === "rejected"))
                       ? true
                       : false
                   }
@@ -334,7 +373,10 @@ export default function PageForm({
                     variant="outline"
                     className="mb-3"
                     disabled={
-                      isDetail || (id && dataInput?.status === "approved")
+                      isDetail ||
+                      (id &&
+                        (dataInput?.status === "approved" ||
+                          dataInput?.status === "rejected"))
                         ? true
                         : false
                     }
@@ -393,7 +435,9 @@ export default function PageForm({
                             size="sm"
                             disabled={
                               isDetail ||
-                              (id && dataInput?.status === "approved")
+                              (id &&
+                                (dataInput?.status === "approved" ||
+                                  dataInput?.status === "rejected"))
                                 ? true
                                 : false
                             }

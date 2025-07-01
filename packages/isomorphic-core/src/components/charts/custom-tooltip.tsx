@@ -60,7 +60,7 @@ export function CustomTooltip({
             <Text>
               <Text as="span" className="capitalize">
                 {addSpacesToCamelCase(
-                  item.dataKey === "in_work" ? "Masuk" : "Tidak Masuk"
+                  item.dataKey === "in_work" ? "Masuk" : "Pulang"
                 )}
                 :
               </Text>{" "}

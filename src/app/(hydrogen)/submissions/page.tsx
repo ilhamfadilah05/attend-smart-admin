@@ -63,9 +63,9 @@ export default function ListPage() {
             >
               <DeletePopover
                 title={`Hapus Data`}
-                description={`Apakah anda yakin ingin menghapus ${row.distribution_import_hid}?`}
+                description={`Apakah anda yakin ingin menghapus data ini?`}
                 onDelete={async () => {
-                  const result = await defaultDeleteService(apiPath, row.uuid);
+                  const result = await defaultDeleteService(apiPath, row.id);
                   if (result && fetchData) fetchData();
                 }}
               />

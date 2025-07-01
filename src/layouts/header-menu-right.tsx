@@ -42,7 +42,7 @@ export default function HeaderMenuRight() {
         </ActionIcon>
       </MessagesDropdown> */}
 
-      <ShortcutMenu />
+      {/* <ShortcutMenu /> */}
       <SettingsButton />
       <ProfileMenu />
     </div>
